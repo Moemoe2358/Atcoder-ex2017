@@ -1,39 +1,40 @@
-mat=[]
+import time #timer
+
+def dfsgraph(searched, leng):
+	global minlen
+	if len(searched) == n :
+		minlen = min(leng, minlen)
+		return
+	for i in range(1, n):
+		if i in searched:
+			continue
+		else:
+			flag = True
+			for j in range(m):
+				if i == restrict[j][1] - 1 and restrict[j][0] - 1 not in searched:
+					flag = False
+					break
+		if flag:
+			newleng = leng + mat[searched[-1]][i]
+			if newleng < minlen:
+				dfsgraph(searched + [i], newleng)
+
+mat = []
+n = input()
 for i in range(n):
 	mat.append(map(int,raw_input().split()))
-
 m = input()
 restrict = []
 for i in range(m):
 	restrict.append(map(int,raw_input().split()))
 
-start_time = time.time()
-minlen = 100000000*15
-searched = []
-def dfsgraph(searched, position, leng):
-	global minlen
-	searched.append(position)
-	if len(searched)==n :
-		minlen = min(leng,minlen)
-		del(searched[len(searched)-1])
-		return
-	for i in range(1,n):
-		flag = True
-		if i in searched:
-			continue
-		else:
-			for j in range(m):
-				if i==restrict[j][1]-1 and (not(restrict[j][0]-1 in searched)):
-					flag = False
-					break
-		if flag:
-			if leng+mat[position][i]<minlen:
-				dfsgraph(searched, i, leng+mat[position][i])
-	del(searched[len(searched)-1])
-	return
+start_time = time.time() #timer
+minlen = 100000001 * 15
+searched = [0]
 
-dfsgraph(searched, 0, 0)
+dfsgraph(searched, 0)
 print(minlen)
+print(time.time() - start_time) #timer
 
 # 14
 # 0 28448202 94752369 6965437 42744902 7560126 75090662 8843627 69061140 64249326 57690728 42986477 48404113 88716403
@@ -44,7 +45,7 @@ print(minlen)
 # 25618079 82961670 3220380 37882710 77238264 0 30285694 94010597 3313434 25248938 6148456 57383107 80041226 52974537
 # 45702192 36993407 35034648 13099849 97787850 79254364 0 44172314 73023554 53984059 83657376 26813141 8449228 85695371
 # 89466424 82640627 2816597 1216033 21988152 90828105 83428522 0 216303 46837120 30499660 38938821 68789759 30497390
-# 14240720 49216529 36512207 64082795 92391305 70382708 28258331 4979511 0 884770 66017741 51457552 4005017 50751247
+# 14240720 49216529 36512207 64082795 92391305 70382708 28258331 4979511 0 88477741 51457552 4005017 50751247
 # 15122265 49804986 83078215 87707425 56873145 88791801 34219986 77073154 82798626 0 7386614 49058658 3482690 55300190
 # 96344094 77929649 15796809 35347942 46688706 15359332 64653788 87407203 42689175 98416950 0 83290181 47967318 90377000
 # 27375431 9920337 23971212 20418378 68812572 23746130 78728346 72070698 1939257 87280009 11983259 0 37799770 16442015
